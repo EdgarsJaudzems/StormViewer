@@ -27,7 +27,8 @@ class DetailViewController: UIViewController {
         }
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
-
+        navigationItem.rightBarButtonItem?.tintColor = .black
+        navigationController?.navigationBar.tintColor = .black
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,8 +44,13 @@ class DetailViewController: UIViewController {
             print("No image found")
             return
         }
+        
+        guard let imageName = selectedImage else {
+            print("No image name found")
+            return
+        }
 
-        let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
+        let vc = UIActivityViewController(activityItems: [image, imageName], applicationActivities: [])
         vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         present(vc, animated: true)
     }

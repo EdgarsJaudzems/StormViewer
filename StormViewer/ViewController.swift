@@ -28,7 +28,9 @@ class ViewController: UITableViewController {
         }
         pictures.sort()
         
-        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(recommendApp))
+        navigationItem.rightBarButtonItem?.tintColor = .black
+
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -49,6 +51,17 @@ class ViewController: UITableViewController {
             
             navigationController?.pushViewController(vc, animated: true)
         }
+    }
+    
+    @objc func recommendApp() {
+        guard let shareAppTitle = title else {
+            print("No title")
+            return
+        }
+        
+        let vc = UIActivityViewController(activityItems: [shareAppTitle], applicationActivities: [])
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
     }
 }
 
